@@ -1,0 +1,55 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+        exclude: ^ui/tsconfig\.(app|node)\.json$
+      - id: check-toml
+      - id: check-merge-conflict
+
+  - repo: local
+    hooks:
+      - id: ui-typecheck
+        name: ui typecheck
+        entry: pnpm --dir ui typecheck
+        language: system
+        pass_filenames: false
+        files: ^ui/
+
+      - id: ui-lint
+        name: ui lint
+        entry: pnpm --dir ui lint
+        language: system
+        pass_filenames: false
+        files: ^ui/
+
+      - id: ui-format-check
+        name: ui format check
+        entry: pnpm --dir ui format:check
+        language: system
+        pass_filenames: false
+        files: ^ui/
+
+      - id: api-mypy
+        name: api mypy
+        entry: uv run --project api mypy --config-file api/pyproject.toml --cache-dir api/.mypy_cache api/src
+        language: system
+        pass_filenames: false
+        files: ^api/
+
+      - id: api-ruff-check
+        name: api ruff check
+        entry: uv run --project api ruff check api --config api/pyproject.toml --cache-dir api/.ruff_cache
+        language: system
+        pass_filenames: false
+        files: ^api/
+
+      - id: api-ruff-format-check
+        name: api ruff format check
+        entry: uv run --project api ruff format --check api --config api/pyproject.toml --cache-dir api/.ruff_cache
+        language: system
+        pass_filenames: false
+        files: ^api/

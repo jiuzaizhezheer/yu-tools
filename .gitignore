@@ -1,0 +1,10 @@
+ui/node_modules
+ui/dist
+
+api/.venv
+api/__pycache__/
+api/.pytest_cache/
+api/.mypy_cache/
+api/.ruff_cache/
+.pre-commit-cache/
+*.pyc
