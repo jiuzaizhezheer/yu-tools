@@ -24,10 +24,12 @@ jobs:
           filters: |
             ui:
               - 'ui/**'
+              - 'Makefile'
               - '.github/workflows/ci.yml'
               - '.pre-commit-config.yaml'
             api:
               - 'api/**'
+              - 'Makefile'
               - '.github/workflows/ci.yml'
               - '.pre-commit-config.yaml'
 

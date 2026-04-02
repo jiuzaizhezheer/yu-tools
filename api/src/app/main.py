@@ -1,7 +1,35 @@
-import uvicorn
-from fastapi import FastAPI
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as package_version
 
-app = FastAPI(title="yu-tools-api")
+import uvicorn
+from fastapi import APIRouter, FastAPI
+
+APP_NAME = "yu-tools-api"
+APP_PACKAGE_NAME = "app"
+APP_VERSION_FALLBACK = "0.1.0"
+
+router = APIRouter(prefix="/api", tags=["system"])
+
+
+def get_app_version() -> str:
+    try:
+        return package_version(APP_PACKAGE_NAME)
+    except PackageNotFoundError:
+        return APP_VERSION_FALLBACK
+
+
+@router.get("/health")
+def health() -> dict[str, str]:
+    return {"status": "ok"}
+
+
+@router.get("/version")
+def version() -> dict[str, str]:
+    return {"name": APP_NAME, "version": get_app_version()}
+
+
+app = FastAPI(title=APP_NAME)
+app.include_router(router)
 
 
 def main() -> None:
