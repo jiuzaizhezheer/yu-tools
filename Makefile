@@ -47,4 +47,4 @@ api-ruff-check:
 api-ruff-format-check:
 	uv run --project api ruff format --check api --config api/pyproject.toml --cache-dir api/.ruff_cache
 
-check: ui-typecheck ui-lint ui-format-check api-mypy api-ruff-check api-ruff-format-check
+check: ui-typecheck ui-lint ui-format-check ui-build api-mypy api-ruff-check api-ruff-format-check
