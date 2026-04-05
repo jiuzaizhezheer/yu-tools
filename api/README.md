@@ -1,55 +1,18 @@
 # api
 
-FastAPI backend for `yu-tools`.
+`yu-tools` 的后端服务，基于 FastAPI + Python 3.13，采用 `src` 布局组织代码。
 
-## 启动
-
-在仓库根目录执行：
-
-```bash
-uv sync --project api --group dev
-uv run --project api api
-```
-
-服务默认监听 `http://127.0.0.1:8000`。
-
-## 当前接口
-
-- `GET /api/health`: 健康检查，返回 `{"status":"ok"}`
-- `GET /api/version`: 版本信息，返回应用名和版本号
-
-## 目录
+## 后端目录结构
 
 ```text
 api/
-├─ pyproject.toml
-├─ uv.lock
-└─ src/
-   └─ app/
-      ├─ __init__.py
-      └─ main.py
-```
-
-## 约定
-
-- 所有新增业务接口统一放在 `/api/*` 路径下。
-- 路由函数必须保留完整类型标注，保证 `mypy --strict` 可通过。
-- 提交前保持 `ruff check` 和 `ruff format --check` 通过。
-
-## 常见命令
-
-在仓库根目录执行：
-
-```bash
-make api-mypy
-make api-ruff-check
-make api-ruff-format-check
-```
-
-在 `api/` 目录执行：
-
-```bash
-uv run mypy src
-uv run ruff check .
-uv run ruff format --check .
+├─ src/             # 源代码目录
+│  ├─ tests/        # 后端测试包
+│  │  └─ __init__.py
+│  └─ yta/          # 后端应用主包 (路由与应用入口)
+│     ├─ __init__.py
+│     └─ main.py
+├─ .python-version  # 使用的 Python 版本
+├─ pyproject.toml   # 后端项目元数据、依赖与工具配置
+└─ uv.lock          # 后端依赖锁定文件
 ```

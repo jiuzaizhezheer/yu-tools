@@ -1,65 +1,24 @@
 # ui
 
-React + Vite + TypeScript frontend for `yu-tools`.
+`yu-tools` 的前端项目，基于 React 19 + Vite 8 + TypeScript 5.9 + Tailwind CSS 4 (ES2023)。
 
-## 启动
-
-在仓库根目录执行：
-
-```bash
-pnpm --dir ui install
-pnpm --dir ui dev
-```
-
-默认访问地址：`http://127.0.0.1:5173`（Vite 默认端口）。
-
-## API 调用链路
-
-- 前端统一请求相对路径 `/api/*`。
-- 开发环境由 `vite.config.ts` 代理到 `http://127.0.0.1:8000`。
-- 当前已接通：
-  - `GET /api/health`
-  - `GET /api/version`
-
-## 目录
+## 前端目录结构
 
 ```text
 ui/
-├─ index.html
-├─ package.json
-├─ vite.config.ts
-├─ tsconfig.json
-├─ tsconfig.app.json
-├─ tsconfig.node.json
-└─ src/
-   ├─ main.tsx
-   ├─ App.tsx
-   ├─ App.css
-   └─ index.css
-```
-
-## 约定
-
-- 保持 TypeScript 严格模式，不使用 `any` 逃避类型检查。
-- 业务请求使用 `/api/*`，不要在组件中硬编码后端主机地址。
-- 提交前保持 `typecheck`、`lint`、`format:check`、`build` 全通过。
-
-## 常见命令
-
-在仓库根目录执行：
-
-```bash
-make ui-typecheck
-make ui-lint
-make ui-format-check
-make ui-build
-```
-
-在 `ui/` 目录执行：
-
-```bash
-pnpm typecheck
-pnpm lint
-pnpm format:check
-pnpm build
+├─ public/              # 公共静态资源
+└─ src/                 # 前端源码
+   ├─ app/              # 应用装配层
+   ├─ assets/           # 构建处理的资源目录
+   ├─ entities/         # 实体层（预留）
+   ├─ features/         # 功能层
+   │  └─ system-status/ # 系统状态功能
+   ├─ pages/            # 页面层
+   │  └─ home/          # 首页
+   └─ shared/           # 共享层
+      ├─ lib/           # 通用库
+      │  ├─ envs/       # 环境变量读取与导出
+      │  └─ http/       # HTTP 请求封装
+      ├─ styles/        # 样式资源
+      └─ types/         # 共享类型
 ```
