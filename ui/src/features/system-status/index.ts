@@ -1,1 +1,1 @@
-export { useSystemStatus } from './model/useSystemStatus'
+export { useSystemStatus } from './hooks/useSystemStatus'

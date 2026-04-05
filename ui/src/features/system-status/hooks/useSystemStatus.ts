@@ -1,13 +1,29 @@
 import { useEffect, useState } from 'react'
 
-import { fetchHealth, fetchVersion } from '../../../shared/api/system'
-import type { HealthResponse, VersionResponse } from '../../../shared/types/system'
+import { HttpError, get } from '@/shared/lib/http'
+
+type HealthResponse = {
+  status: string
+}
+
+type VersionResponse = {
+  name: string
+  version: string
+}
 
 type SystemStatusState = {
   health: HealthResponse | null
   version: VersionResponse | null
   errorMessage: string | null
   loading: boolean
+}
+
+function fetchHealth(signal?: AbortSignal): Promise<HealthResponse> {
+  return get<HealthResponse>('/health', { signal })
+}
+
+function fetchVersion(signal?: AbortSignal): Promise<VersionResponse> {
+  return get<VersionResponse>('/version', { signal })
 }
 
 export function useSystemStatus(): SystemStatusState {
@@ -29,6 +45,10 @@ export function useSystemStatus(): SystemStatusState {
         setHealth(healthData)
         setVersion(versionData)
       } catch (error) {
+        if (error instanceof HttpError && error.isAborted && !error.isTimeout) {
+          return
+        }
+
         if (error instanceof DOMException && error.name === 'AbortError') {
           return
         }

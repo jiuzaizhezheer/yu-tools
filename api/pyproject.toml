@@ -1,10 +1,10 @@
 [project]
-name = "app"
+name = "yta"
 version = "0.1.0"
 description = "yu-tools-api"
 readme = "README.md"
 authors = [
-    { name = "zhenyu", email = "huangzhenyu654@gmail.com" }
+    { name = "zhenyu", email = "[EMAIL_ADDRESS]" }
 ]
 requires-python = ">=3.13"
 dependencies = [
@@ -13,7 +13,7 @@ dependencies = [
 ]
 
 [project.scripts]
-api = "app.main:main"
+api = "yta.main:main"
 
 [build-system]
 requires = ["uv_build>=0.9.8,<0.10.0"]
